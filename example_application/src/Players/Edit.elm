@@ -5,6 +5,7 @@ import Html.Attributes exposing (class, value, href)
 import Routing exposing (playersPath)
 import Msgs exposing (Msg)
 import Models exposing (Player)
+import Html.Events exposing (onClick)
 
 
 view : Player -> Html Msg
@@ -43,17 +44,6 @@ formLevel player =
         ]
 
 
-btnLevelDecrease : Player -> Html Msg
-btnLevelDecrease player =
-    a [ class "btn ml1 h1" ]
-        [ i [ class "fa fa-minus-circle" ] [] ]
-
-
-btnLevelIncrease : Player -> Html Msg
-btnLevelIncrease player =
-    a [ class "btn ml1 h1" ]
-        [ i [ class "fa fa-plus-circle" ] [] ]
-
 listBtn : Html Msg
 listBtn =
     a
@@ -61,3 +51,22 @@ listBtn =
         , href playersPath
         ]
         [ i [ class "fa fa-chevron-left mr1" ] [], text "List" ]
+
+btnLevelDecrease : Player -> Html Msg
+btnLevelDecrease player =
+    let
+        message =
+            Msgs.ChangeLevel player -1
+    in
+        a [ class "btn ml1 h1", onClick message ]
+            [ i [ class "fa fa-minus-circle" ] [] ]
+
+
+btnLevelIncrease : Player -> Html Msg
+btnLevelIncrease player =
+    let
+        message =
+            Msgs.ChangeLevel player 1
+    in
+        a [ class "btn ml1 h1", onClick message ]
+            [ i [ class "fa fa-plus-circle" ] [] ]
